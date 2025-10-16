@@ -1,12 +1,18 @@
-<header class="header">
+<header class="main-header">
   <div class="logo">
-    <a routerLink="/">Pastelería</a>
+    <a routerLink="/">PastelApp</a>
   </div>
-  <nav class="nav">
-    <ul>
-      <li><a routerLink="/cakes">Pasteles</a></li>
-      <li><a routerLink="/about">Sobre nosotros</a></li>
-      <li><a routerLink="/contact">Contacto</a></li>
-    </ul>
+  <nav class="main-nav">
+    <a routerLink="/inventory">Inventario</a>
+    <a routerLink="/recipes">Recetas</a>
+    <a routerLink="/cart">Carrito</a>
   </nav>
+  <div class="auth-links">
+    @if (currentUser()) {
+      <a routerLink="/profile">Perfil</a>
+      <a (click)="logout.emit()">Cerrar sesión</a>
+    } @else {
+      <a (click)="login.emit()">Login</a>
+    }
+  </div>
 </header>

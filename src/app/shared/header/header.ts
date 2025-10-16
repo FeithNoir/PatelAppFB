@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { User } from '../../services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -9,5 +10,7 @@ import { RouterLink } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderComponent {
-
+  public currentUser = input<User | null>(null);
+  public login = output<void>();
+  public logout = output<void>();
 }

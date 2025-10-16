@@ -1,15 +1,29 @@
 .app-container {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-areas:
+    "header header"
+    "sidebar content"
+    "footer footer";
+  grid-template-columns: 240px 1fr;
+  grid-template-rows: auto 1fr auto;
   min-height: 100vh;
 }
 
-.main-layout {
-  display: flex;
-  flex: 1;
+app-header {
+  grid-area: header;
 }
 
-.main-content {
-  flex: 1;
+app-sidebar {
+  grid-area: sidebar;
+  background-color: var(--secondary-color);
   padding: 2rem;
+}
+
+.content {
+  grid-area: content;
+  padding: 2rem;
+}
+
+app-footer {
+  grid-area: footer;
 }

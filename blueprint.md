@@ -6,54 +6,49 @@
 
 ## Características implementadas
 
-* **Arquitectura basada en componentes:**
-    * Componentes independientes para elementos de la interfaz de usuario como cabecera, pie de página, tarjetas de pasteles, etc.
-    * Detección de cambios OnPush para el rendimiento.
-* **Enrutamiento:**
-    * `app.routes.ts` define las rutas para inicio, cesta, inicio de sesión, perfil y pago.
-    * **Se ha implementado la carga perezosa (Lazy Loading) para todas las rutas, mejorando el rendimiento inicial de la aplicación.**
-* **Gestión de estado:**
-    * Utiliza señales de Angular para el estado de los componentes locales.
-    * `AuthService` y `CartService` para la gestión del estado global.
-* **Autenticación:**
-    * Componente de inicio de sesión para la autenticación de usuarios.
-    * `AuthService` para gestionar el estado de autenticación (señal `isAuthenticated`).
-    * `authGuard` para proteger rutas (`/profile`, `/checkout`).
-    * Cabecera dinámica que muestra "Iniciar sesión" o "Perfil/Cerrar sesión" según el estado de autenticación.
-* **Estilo:**
-    * Diseño moderno y limpio con una paleta de colores y tipografía personalizadas.
-    * Diseño adaptable para móviles y ordenadores de sobremesa.
-    * Utiliza CSS nativo con enlaces `[class]` y `[style]`.
-* **Proceso de compilación:**
-    * Se compila correctamente con `ng build`.
+*   **Arquitectura basada en componentes:**
+    *   Componentes independientes para elementos de la interfaz de usuario como cabecera, pie de página, tarjetas de pasteles, etc.
+    *   Detección de cambios `OnPush` para el rendimiento.
+*   **Enrutamiento:**
+    *   `app.routes.ts` define las rutas para inicio, inventario, recetas, carrito, perfil y pago.
+    *   **Se ha implementado la carga perezosa (Lazy Loading) para todas las rutas, mejorando el rendimiento inicial de la aplicación.**
+*   **Gestión de estado:**
+    *   Utiliza señales de Angular para el estado de los componentes locales.
+    *   `AuthService` para la gestión del estado de autenticación, con una señal `currentUser` que contiene los datos del usuario o `null`.
+*   **Autenticación:**
+    *   `AuthService` gestiona el estado de autenticación.
+    *   Cabecera dinámica que muestra "Login" o "Perfil/Cerrar sesión" según el estado de `currentUser`.
+*   **Estilo:**
+    *   Fichero `styles.css` global con una paleta de colores y tipografía personalizada usando variables CSS.
+    *   Diseño moderno y limpio aplicado a los componentes principales.
+    *   Diseño adaptable para móviles y ordenadores de sobremesa.
+    *   Utiliza CSS nativo con enlaces `[class]` y `[style]`.
+*   **Proceso de compilación:**
+    *   Se compila correctamente con `ng build`.
 
-## Cambio actual (Fase 2): Autenticación y enrutamiento con Carga Perezosa
+## Cambio actual (Fase 3): Refinamiento visual y autenticación en la cabecera
 
-* **Objetivo:** Implementar la autenticación de usuarios y crear una estructura de página básica con enrutamiento optimizado mediante carga perezosa.
-* **Pasos:**
-    1.  **Crear servicio de autenticación (`AuthService`):**
-        * Gestiona el estado de autenticación del usuario (p. ej., señal `isAuthenticated`).
-        * Proporciona los métodos `login()` y `logout()`.
-        * Utiliza un usuario simulado por simplicidad.
-    2.  **Crear `auth.guard.ts`:**
-        * Protege las rutas que requieren autenticación.
-        * Redirige a los usuarios no autenticados a la página de inicio de sesión.
-    3.  **Crear componentes de página:**
-        * `HomeComponent`: La página de destino principal.
-        * `CartComponent`: Muestra la cesta de la compra.
-        * `CheckoutComponent`: La página de pago (protegida).
-        * `LoginComponent`: La página de inicio de sesión del usuario.
-        * `ProfileComponent`: La página de perfil del usuario (protegida).
-    4.  **Actualizar `app.routes.ts` con Carga Perezosa:**
-        * Se modificaron las rutas para usar `loadComponent` en lugar de `component`.
-        * Esto permite que cada componente de la página se cargue solo cuando se navega a su ruta, mejorando el rendimiento.
-        * Se aplicó el `authGuard` a las rutas `profile` y `checkout`.
-    5.  **Actualizar componente de cabecera:**
-        * Inyectar `AuthService`.
-        * Mostrar dinámicamente los enlaces "Iniciar sesión" o "Perfil/Cerrar sesión" según la señal `isAuthenticated`.
-        * Implementar la funcionalidad `logout()`.
-    6.  **Actualizar navegación móvil:**
-        * Añadir los mismos enlaces de autenticación dinámica que la cabecera principal.
+*   **Objetivo:** Definir una paleta de colores y tipografía global, y conectar el estado de autenticación a la cabecera para mostrar los enlaces de Login/Perfil/Logout.
+*   **Pasos:**
+    1.  **Definir estilos globales (`styles.css`):**
+        *   Crear variables CSS para la paleta de colores (`--primary-color`, `--accent-color`, etc.).
+        *   Definir fuentes primarias y secundarias (`--font-primary`, `--font-secondary`).
+        *   Establecer estilos base para `body`, enlaces, etc.
+    2.  **Crear `AuthService`:**
+        *   Definir una interfaz `User`.
+        *   Crear una señal `currentUser` para almacenar el usuario (o `null`).
+        *   Implementar los métodos `login()` y `logout()` (simulados).
+    3.  **Integrar `AuthService` en `AppComponent`:**
+        *   Inyectar `AuthService`.
+        *   Exponer la señal `currentUser` y los métodos `login`/`logout` a la plantilla.
+    4.  **Actualizar `HeaderComponent`:**
+        *   Usar `input()` para recibir el `currentUser`.
+        *   Usar `output()` para emitir eventos `login` y `logout`.
+        *   Modificar la plantilla `header.html` para mostrar condicionalmente los enlaces de autenticación usando `@if`.
+    5.  **Actualizar `app.html`:**
+        *   Pasar la señal `currentUser` al `app-header`.
+        *   Vincular los eventos `(login)` y `(logout)` a los métodos del `AppComponent`.
+    6.  **Aplicar estilos globales:**
+        *   Actualizar los ficheros CSS de `inventory`, `inventory-form`, `app`, y `header` para usar las nuevas variables CSS.
     7.  **Verificar y compilar:**
-        * Ejecutar `ng build` para asegurar que no haya errores de compilación.
-        * Corregir el error `noMatchError` implementando la carga perezosa.
+        *   Ejecutar `ng build` para asegurar que no haya errores de compilación.
