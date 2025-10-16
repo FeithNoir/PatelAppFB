@@ -1,15 +1,24 @@
-import { ChangeDetectionStrategy, Component, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, output } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { AuthService } from '../../auth/auth.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-mobile-nav',
-  imports: [RouterLink],
+  imports: [RouterLink, CommonModule],
   template: `
     <div class="overlay" (click)="close.emit()">
       <nav>
         <ul>
           <li><a routerLink="/" (click)="close.emit()">Inicio</a></li>
           <li><a routerLink="/cart" (click)="close.emit()">Carrito</a></li>
+          @if (!authService.isAuthenticated()) {
+            <li><a routerLink="/login" (click)="close.emit()">Iniciar Sesión</a></li>
+          } @else {
+            <li><a routerLink="/profile" (click)="close.emit()">Perfil</a></li>
+            <li><a routerLink="/inventory" (click)="close.emit()">Inventario</a></li>
+            <li><a (click)="logout()" style="cursor: pointer;">Cerrar Sesión</a></li>
+          }
         </ul>
       </nav>
     </div>
@@ -49,5 +58,11 @@ import { RouterLink } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MobileNavComponent {
+  authService = inject(AuthService);
   close = output<void>();
+
+  logout() {
+    this.authService.logout();
+    this.close.emit();
+  }
 }

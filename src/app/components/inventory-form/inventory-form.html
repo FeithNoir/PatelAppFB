@@ -1,0 +1,61 @@
+<div class="modal-overlay" (click)="onClose()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <header class="modal-header">
+      <h2>{{ ingredient() ? 'Editar Ingrediente' : 'Añadir Ingrediente' }}</h2>
+      <button class="close-button" (click)="onClose()">&times;</button>
+    </header>
+    
+    <form [formGroup]="ingredientForm" (ngSubmit)="onSubmit()">
+      <div class="form-grid">
+        <!-- Name -->
+        <div class="form-field">
+          <label for="name">Nombre</label>
+          <input id="name" formControlName="name" placeholder="Ej: Harina de trigo">
+        </div>
+
+        <!-- Brand -->
+        <div class="form-field">
+          <label for="brand">Marca</label>
+          <input id="brand" formControlName="brand" placeholder="Ej: Gallina Blanca">
+        </div>
+
+        <!-- Price -->
+        <div class="form-field">
+          <label for="price">Precio</label>
+          <input id="price" type="number" formControlName="price">
+        </div>
+
+        <!-- Unit -->
+        <div class="form-field">
+          <label for="unit">Unidad</label>
+          <select id="unit" formControlName="unit">
+            <option value="kg">Kg</option>
+            <option value="litro">Litro</option>
+            <option value="unidad">Unidad</option>
+          </select>
+        </div>
+
+        <!-- Expiry Date -->
+        <div class="form-field">
+          <label for="expiryDate">Fecha de Caducidad</label>
+          <input id="expiryDate" type="date" formControlName="expiryDate">
+        </div>
+
+        <!-- Status -->
+        <div class="form-field">
+          <label for="status">Estado</label>
+          <select id="status" formControlName="status">
+            <option value="sin-empezar">Sin Empezar</option>
+            <option value="abierto">Abierto</option>
+            <option value="agotado">Agotado</option>
+          </select>
+        </div>
+      </div>
+
+      <footer class="modal-footer">
+        <button type="button" class="secondary-button" (click)="onClose()">Cancelar</button>
+        <button type="submit" class="primary-button" [disabled]="ingredientForm.invalid">Guardar</button>
+      </footer>
+    </form>
+  </div>
+</div>

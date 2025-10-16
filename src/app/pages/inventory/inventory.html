@@ -1,0 +1,62 @@
+<div class="inventory-container">
+  <header class="inventory-header">
+    <h1>Inventario de Ingredientes</h1>
+    <button (click)="addIngredient()" class="add-button">
+      <span class="icon">+</span>
+      Añadir Ingrediente
+    </button>
+  </header>
+
+  @if (loading()) {
+    <div class="loading-container">
+      <p>Cargando ingredientes...</p>
+    </div>
+  } @else {
+    <div class="table-responsive">
+      <table class="ingredients-table">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Marca</th>
+            <th>Precio</th>
+            <th>Estado</th>
+            <th>Caducidad</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (ingredient of ingredients(); track ingredient.id) {
+            <tr>
+              <td data-label="Nombre">{{ ingredient.name }}</td>
+              <td data-label="Marca">{{ ingredient.brand || 'N/A' }}</td>
+              <td data-label="Precio">{{ ingredient.price | currency:'EUR' }} / {{ingredient.unit}}</td>
+              <td data-label="Estado">
+                <span class="status-badge" [class]="'status-' + ingredient.status.toLowerCase().replace(' ', '-')">
+                  {{ ingredient.status }}
+                </span>
+              </td>
+              <td data-label="Caducidad">{{ ingredient.expiryDate | date:'dd/MM/yyyy' }}</td>
+              <td data-label="Acciones">
+                <div class="action-buttons">
+                  <button (click)="editIngredient(ingredient)" class="edit-btn">Editar</button>
+                  <button (click)="deleteIngredient(ingredient.id)" class="delete-btn">Eliminar</button>
+                </div>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="6" class="empty-state">No hay ingredientes en el inventario.</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>
+
+@if(isFormVisible()) {
+  <app-inventory-form 
+    [ingredient]="editingIngredient()" 
+    (save)="saveIngredient($event)" 
+    (close)="closeForm()"/>
+}

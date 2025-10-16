@@ -1,18 +1,4 @@
-<div class="checkout-container">
-  <h1>Checkout</h1>
-  <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label for="name">Name</label>
-      <input id="name" formControlName="name">
-    </div>
-    <div class="form-group">
-      <label for="address">Address</label>
-      <input id="address" formControlName="address">
-    </div>
-    <div class="form-group">
-      <label for="payment">Payment Information</label>
-      <input id="payment" formControlName="payment">
-    </div>
-    <button type="submit" [disabled]="!checkoutForm.valid">Place Order</button>
-  </form>
+<div>
+  <h2>Checkout</h2>
+  <p>Esta es la página de pago. Solo los usuarios autenticados pueden verla.</p>
 </div>

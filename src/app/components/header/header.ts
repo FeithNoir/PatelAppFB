@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { MobileNavComponent } from '../mobile-nav/mobile-nav';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -11,9 +12,14 @@ import { MobileNavComponent } from '../mobile-nav/mobile-nav';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderComponent {
+  authService = inject(AuthService);
   mobileNavOpen = signal(false);
 
   toggleMobileNav() {
     this.mobileNavOpen.set(!this.mobileNavOpen());
+  }
+
+  logout() {
+    this.authService.logout();
   }
 }
