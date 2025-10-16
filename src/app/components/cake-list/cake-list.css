@@ -1,0 +1,61 @@
+.cake-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.controls-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #f8f9fa;
+}
+
+.search-container input {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 250px;
+}
+
+.filter-sort-container select {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-left: 1rem;
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+}
+
+@media (max-width: 768px) {
+  .controls-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-container {
+    margin-bottom: 1rem;
+  }
+
+  .filter-sort-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .filter-sort-container select {
+    margin-left: 0;
+    margin-bottom: 0.5rem;
+  }
+
+  .cake-list {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+  }
+}

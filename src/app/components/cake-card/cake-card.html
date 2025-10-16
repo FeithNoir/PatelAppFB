@@ -1,0 +1,10 @@
+<div class="card-content">
+  <a [routerLink]="['/cake', cake().id]">
+    <img [ngSrc]="cake().imageUrl" [alt]="cake().name" width="300" height="200">
+    <h3>{{ cake().name }}</h3>
+  </a>
+  <div class="card-footer">
+    <p>{{ cake().price | currency:'USD' }}</p>
+    <button (click)="addToCart()">Añadir al carrito</button>
+  </div>
+</div>

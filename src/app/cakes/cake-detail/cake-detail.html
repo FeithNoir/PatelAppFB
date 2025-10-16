@@ -1,0 +1,11 @@
+@if (cake()) {
+  <div class="cake-detail-container">
+    <img [src]="cake()?.imageUrl" [alt]="cake()?.name">
+    <div class="cake-details">
+      <h2>{{ cake()?.name }}</h2>
+      <p>{{ cake()?.description }}</p>
+    </div>
+  </div>
+} @else {
+  <p>Pastel no encontrado.</p>
+}

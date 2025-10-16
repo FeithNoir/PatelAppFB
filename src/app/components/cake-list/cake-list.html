@@ -1,0 +1,11 @@
+<div class="list-container">
+  @if (loading()) {
+    <app-loading-spinner />
+  } @else {
+    <div class="cake-grid">
+      @for (cake of cakes(); track cake.id) {
+        <app-cake-card [cake]="cake" />
+      }
+    </div>
+  }
+</div>

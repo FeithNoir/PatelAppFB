@@ -1,0 +1,17 @@
+<h2>Carrito de compras</h2>
+
+@if (cartItems().length === 0) {
+  <p>Tu carrito está vacío.</p>
+} @else {
+  <ul class="cart-items">
+    @for (item of cartItems(); track item.cake.id) {
+      <li class="cart-item">
+        <img [src]="item.cake.imageUrl" [alt]="item.cake.name">
+        <div class="item-details">
+          <span>{{ item.cake.name }}</span>
+          <span>Cantidad: {{ item.quantity }}</span>
+        </div>
+      </li>
+    }
+  </ul>
+}

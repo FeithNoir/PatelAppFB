@@ -1,0 +1,9 @@
+<div class="cake-list">
+  @for (cake of cakes; track cake.id) {
+    <div class="cake-card">
+      <img [src]="cake.imageUrl" [alt]="cake.name">
+      <h3>{{ cake.name }}</h3>
+      <p>{{ cake.description }}</p>
+    </div>
+  }
+</div>

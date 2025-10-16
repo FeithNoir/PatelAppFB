@@ -1,0 +1,15 @@
+@if (cake(); as cake) {
+  <div class="cake-detail">
+    <div class="cake-image">
+      <img [ngSrc]="cake.imageUrl" [alt]="cake.name" width="600" height="600">
+    </div>
+    <div class="cake-info">
+      <h1>{{ cake.name }}</h1>
+      <p class="price">{{ cake.price | currency:'USD' }}</p>
+      <p>{{ cake.description }}</p>
+      <button (click)="addToCart()">Añadir al carrito</button>
+    </div>
+  </div>
+} @else {
+  <p>Cake not found!</p>
+}
